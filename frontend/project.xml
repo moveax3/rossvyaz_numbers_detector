@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<meta title="Frontend" package="com.sample.frontend" version="1.0.0" company="Company Name" />
+	<app main="Main" path="Export" file="Frontend" />
+	
+	<source path="Source" />
+	
+	<haxelib name="openfl" />
+	<haxelib name="flixel" />
+	<haxelib name="actuate" />
+	
+	<assets path="Assets" rename="assets" />
+	
+</project>
