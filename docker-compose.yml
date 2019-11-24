@@ -1,0 +1,48 @@
+version: '3.1'
+
+services:
+  db:
+    container_name: rf_phone_numbers_db
+    image: postgres:12-alpine
+    env_file: prod.env
+    restart: always
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+    env_file: prod.env
+
+  updater:
+    container_name: rf_phone_numbers_updater
+    build: ./backend/
+    restart: always
+    volumes:
+      - ./backend/src/:/usr/src/app
+    depends_on:
+      - db
+    command: ["python3", "/usr/src/app/rossvyaz.py"]
+    env_file: prod.env
+
+  flask:
+    container_name: rf_phone_numbers_flask
+    build: ./backend/
+    restart: always
+    volumes:
+      - ./backend/src/:/usr/src/app
+    depends_on:
+      - db
+    command: ["python3", "/usr/src/app/backend.py"]
+    env_file: prod.env
+
+  nginx:
+    container_name: rf_phone_numbers_nginx
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/with_domain.conf:/etc/nginx/conf.d/with_domain.template
+      - ./nginx/without_domain.conf:/etc/nginx/conf.d/without_domain.template
+      - /etc/letsencrypt/:/etc/letsencrypt/
+      - ./nginx/entrypoint.sh:/entrypoint.sh
+      - ./logs:/logs
+    command: ["bash", "/entrypoint.sh"]
+    env_file: prod.env

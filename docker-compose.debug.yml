@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+  db:
+    env_file: debug.env
+
+  pgadmin:
+    image: dpage/pgadmin4
+    env_file: debug.env
+    ports:
+      - "8111:80"
+  
+  updater:
+    env_file: debug.env
+    stdin_open: true
+    tty: true
+
+  flask:
+    env_file: debug.env
+    stdin_open: true
+    tty: true
+
+  
