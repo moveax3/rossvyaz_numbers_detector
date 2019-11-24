@@ -894,9 +894,9 @@ ApplicationMain.create = function(config) {
 	ManifestResources.init(config);
 	var _this = app.meta;
 	if(__map_reserved["build"] != null) {
-		_this.setReserved("build","4");
+		_this.setReserved("build","6");
 	} else {
-		_this.h["build"] = "4";
+		_this.h["build"] = "6";
 	}
 	var _this1 = app.meta;
 	if(__map_reserved["company"] != null) {
@@ -3453,9 +3453,11 @@ Main.prototype = $extend(openfl_display_Sprite.prototype,{
 		var textFormat = new openfl_text_TextFormat(null,this.text.get_height() / 5 | 0);
 		this.text.setTextFormat(textFormat);
 		if(opsos == "Not found" && location == "Not found") {
-			this.text.set_text("Номер должен быть в формате: \n7987654321.");
+			var _g = this.text;
+			_g.set_text(_g.get_text() + "\n\nНомер должен быть в формате: \n7987654321.");
 		} else {
-			this.text.set_text(opsos + "\n" + location);
+			var _g1 = this.text;
+			_g1.set_text(_g1.get_text() + ("\n\n" + opsos + "\n" + location));
 		}
 		this.text.addEventListener("mouseDown",$bind(this,this.click_after_render_response));
 		this.text.addEventListener("touchBegin",$bind(this,this.touch_after_render_response));
@@ -23615,7 +23617,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 77555;
+	this.version = 83711;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = "lime.utils.AssetCache";

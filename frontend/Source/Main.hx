@@ -52,9 +52,9 @@ class Main extends Sprite
     var textFormat = new TextFormat(null, Std.int(text.height / 5));
     text.setTextFormat(textFormat);
     if (opsos == "Not found" && location == "Not found"){
-      text.text = "Номер должен быть в формате: \n7987654321.";
+      text.text += "\n\nНомер должен быть в формате: \n7987654321.";
     } else {
-      text.text = opsos + "\n" + location;      
+      text.text += "\n\n" + opsos + "\n" + location;      
     }
     text.addEventListener(MouseEvent.MOUSE_DOWN, click_after_render_response);
     text.addEventListener(TouchEvent.TOUCH_BEGIN, touch_after_render_response);
