@@ -34,7 +34,7 @@ services:
 
   nginx:
     container_name: rf_phone_numbers_nginx
-    image: nginx:alpine
+    build: ./nginx/
     ports:
       - "80:80"
       - "443:443"
@@ -44,5 +44,6 @@ services:
       - /etc/letsencrypt/:/etc/letsencrypt/
       - ./nginx/entrypoint.sh:/entrypoint.sh
       - ./logs:/logs
+      - ./frontend/Export/html5/bin/:/var/www/frontend/
     command: ["bash", "/entrypoint.sh"]
     env_file: prod.env

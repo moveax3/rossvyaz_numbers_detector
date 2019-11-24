@@ -1,4 +1,3 @@
-import traceback
 from typing import Tuple
 
 from sqlalchemy import (
@@ -7,7 +6,6 @@ from sqlalchemy import (
     BigInteger,
     ForeignKey,
     Integer,
-    exc,
     sql,
     and_,
 )
@@ -37,7 +35,9 @@ class Diaposon(Base):
             result = session.query(Diaposon)\
                             .filter(and_(Diaposon.start <= number, Diaposon.end >= number))\
                             .first()
-            return (result.operator, result.location)
+            operator = session.query(Operator).filter(Operator.id == result.operator).first()
+            location = session.query(Location).filter(Location.id == result.location).first()
+            return (operator.name, location.name)
         except Exception:
             return None
         finally:
@@ -56,10 +56,10 @@ class Diaposon(Base):
 class Operator(Base):
     __tablename__ = 'numbers_operators'
     id = Column(Integer, primary_key=True)
-    name = Column(String(128), nullable=False, unique=True)
+    name = Column(String(512), nullable=False, unique=True)
 
 
 class Location(Base):
     __tablename__ = 'numbers_locations'
     id = Column(Integer, primary_key=True)
-    name = Column(String(256), nullable=False, unique=True)
+    name = Column(String(512), nullable=False, unique=True)
